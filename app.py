@@ -8,21 +8,21 @@ db = UserDb(app)
 @app.route('/' , methods=['GET','POST'])
 def login():
 	msg = ''
-	data = request.get_json()
-	username = data['username']
-	password = data['password']
-	account = db.get_account(username, password)
-	if account:
-		session['loggedin'] = True
-		session['id'] = account['id']
-		session['username'] = account['username']
-		return redirect(url_for('home'))
-	else:
-		msg = 'invalid username and password!'
-		return jsonify({'message':msg})
+	if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+		username = request.form['username']
+		password = request.form['password']
+		account = db.get_account(username, password)
+		if account:
+			session['loggedin'] = True
+			session['id'] = account['id']
+			session['username'] = account['username']
+			return redirect(url_for('home'))
+		else:
+			msg = 'invalid username and password!'
+			return jsonify({'message':msg})
 	return render_template('index.html')
 
-@app.route('/register',methods = ['GET','POST'])
+@app.route('/register',methods = ['POST'])
 def register():
 	msg = ''
 	data = request.get_json()
