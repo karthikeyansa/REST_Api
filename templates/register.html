@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>register</title>
+</head>
+<body>
+<center>
+	<h1>register</h1>
+	<a href="{{ url_for('login') }}">login</a>
+	<a href="{{ url_for('register') }}">register</a>
+	<form action="{{ url_for('register') }}" method = 'POST' autocomplete="off">
+		username<input type="text" name="username" placeholder="username" id="username" required><br>
+		password<input type="password" name="password" placeholder="password" id="password" required><br>
+		email<input type="email" name="email" placeholder="email" id="email" required><br>
+		<input type="submit" value="register"><br>
+	</form>
+</center>
+</body>
+</html>
